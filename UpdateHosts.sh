@@ -1,10 +1,14 @@
 #!/bin/bash
-if [ ! -d "backup" ]; then
+
+Update(){
+echo "\n"
+
+    if [ ! -d "backup" ]; then
 	mkdir backup
-fi
-if [ -f "hosts" ]; then
+    fi
+    if [ -f "hosts" ]; then
 	rm hosts
-fi
+    fi
 
 
 datename=$(date +%Y%m%d-%H%M%S)
@@ -18,7 +22,7 @@ echo "Backing up temp hosts file..."
 if [ ! -d ./backup/$datename ]; then
 	mkdir ./backup/$datename
 fi
-cp /etc/hosts ./backup/$datename/hosts.bk
+cp $HostsPath/hosts ./backup/$dateename/hosts.bk
 echo "======"
 echo "=done="
 echo "======"
@@ -33,14 +37,40 @@ echo "======"
 echo "=done="
 echo "======"
 
-echo "==========================="
-echo "= Moving files, PW needed ="
-echo "==========================="
 
-sudo mv ./hosts /etc/hosts; fi
+echo "================================="
+echo "= Moving files, PW might needed ="
+echo "================================="
+if [-n `type sudo`];then
+	sudo mv ./hosts $HostsPath/hosts ; 
+else mv ./hosts $HostsPath/hosts; 
+fi
 
 
 
 echo "============================"
 echo "=Updating has been FINISHED="
 echo "============================"
+
+return
+
+}
+
+
+System=$(uname -s)
+if [ $System=="MINGW64_NT-10.0" ];then
+	HostsPath=/c/Windows/System32/drivers/etc
+else
+	HostsPath=/etc
+fi
+
+read -n1 -p "If the HostsPath $HostsPath is correct, your hosts will be updated [Y/N]." answer 
+case $answer in 
+Y|y) 
+    Update;;
+N|n) 
+    exit 0;;
+*) 
+    echo "error choice";;
+esac
+
