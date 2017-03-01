@@ -41,10 +41,10 @@ echo "======"
 echo "================================="
 echo "= Moving files, PW might needed ="
 echo "================================="
-if [-n `type sudo`];then
-	sudo mv ./hosts $HostsPath/hosts ; 
-else mv ./hosts $HostsPath/hosts; 
-fi
+
+	
+mv ./hosts $HostsPath/hosts 
+sudo mv ./hosts $HostsPath/hosts 
 
 
 
@@ -60,7 +60,9 @@ return
 System=$(uname -s)
 if [ $System=="MINGW64_NT-10.0" ];then
 	HostsPath=/c/Windows/System32/drivers/etc
-else
+fi
+
+if [ $System=="Linux" ];then
 	HostsPath=/etc
 fi
 
@@ -73,4 +75,3 @@ N|n)
 *) 
     echo "error choice";;
 esac
-
