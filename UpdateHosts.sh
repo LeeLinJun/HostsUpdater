@@ -31,7 +31,7 @@ echo "======"
 echo "Downloading from github..."
 wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts --no-check-certificate
 if [  -f  "/etc/hostname" ]; then
-	echo 127.0.0.1	$(cat /etc/hostname)  > hosts
+	echo 127.0.0.1	$(cat /etc/hostname)  >> hosts
 fi
 echo "======"
 echo "=done="
