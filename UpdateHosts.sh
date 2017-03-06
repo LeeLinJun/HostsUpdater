@@ -59,7 +59,7 @@ return
 
 
 System=$(uname -s)
-if [ $System=="MINGW64_NT-10.0" ];then
+if [ $System == "MINGW64_NT-10.0" ];then
 	HostsPath=/c/Windows/System32/drivers/etc
 else HostsPath=/etc
 fi
