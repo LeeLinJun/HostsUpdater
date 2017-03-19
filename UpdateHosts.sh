@@ -22,17 +22,19 @@ echo "Backing up temp hosts file..."
 if [ ! -d ./backup/$datename ]; then
 	mkdir ./backup/$datename
 fi
-cp $HostsPath/hosts ./backup/$dateename/hosts.bk
+cp $HostsPath/hosts ./backup/$datename/hosts.bk
 echo "======"
 echo "=done="
 echo "======"
 
 
 echo "Downloading from github..."
-#Some hosts url,for example:(Thanks to racaljk's project)
-wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts --no-check-certificate
+#wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts --no-check-certificate
+wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts
 if [  -f  "/etc/hostname" ]; then
-	echo 127.0.0.1	$(cat /etc/hostname)  >> hosts
+        echo "\
+">>hosts
+	echo 127.0.0.1	$(cat /etc/hostname) >> hosts
 fi
 echo "======"
 echo "=done="
@@ -43,9 +45,8 @@ echo "================================="
 echo "= Moving files, PW might needed ="
 echo "================================="
 
-	
+rm $HostsPath/hosts
 mv ./hosts $HostsPath/hosts 
-sudo mv ./hosts $HostsPath/hosts 
 
 
 
@@ -74,3 +75,4 @@ N|n)
 *) 
     echo "error choice";;
 esac
+
